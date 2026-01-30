@@ -1,4 +1,4 @@
-// Database Manager (SDK Modular v10) - Versão Melhorada
+// Database Manager (SDK Modular v10) - COMPLETO E CORRIGIDO
 import { auth, database, storage } from '../config/firebase-config.js';
 import { 
     ref, 
@@ -79,11 +79,16 @@ const dbManager = {
             updatedAt: Date.now()
         };
         await set(newRef, data);
+        
+        // CORREÇÃO: Retorna apenas o ID como string
         return newRef.key;
     },
 
+    // Método alternativo compatível com o seu form atual
+    // CORREÇÃO: Agora retorna explicitamente apenas o ID
     async addManicure(data) {
-        return await this.createManicure(data);
+        const newId = await this.createManicure(data);
+        return newId; // Retorna apenas a string do ID
     },
 
     async updateManicure(manicureId, updates) {
@@ -102,23 +107,16 @@ const dbManager = {
         
         const historyRef = ref(database, `users/${uid}/manicures/${manicureId}/exchanges`);
         const newExchangeRef = push(historyRef);
-        
-        // Data da troca (pode ser retroativa se o usuário escolher)
-        const timestamp = exchangeData.date || Date.now();
-        
-        // Data da próxima troca (prioriza a personalizada, senão calcula pelo plano)
-        let nextExchange = exchangeData.nextDate;
-        if (!nextExchange) {
-            const planDays = parseInt(manicure.planType) || 15;
-            nextExchange = timestamp + (planDays * 24 * 60 * 60 * 1000);
-        }
+        const timestamp = Date.now();
 
         await set(newExchangeRef, {
             id: newExchangeRef.key,
             date: timestamp,
-            nextExchangeCalculated: nextExchange,
             notes: exchangeData.notes || ""
         });
+
+        const planDays = parseInt(manicure.planType) || 15;
+        const nextExchange = timestamp + (planDays * 24 * 60 * 60 * 1000);
 
         await this.updateManicure(manicureId, {
             lastExchangeDate: timestamp,
