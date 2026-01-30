@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard - Marriê Beauty</title>
+  <title>Dashboard - Marriê Beauty | Tramontina</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="icon" href="https://www.marriebeauty.com.br/wp-content/uploads/2021/11/logo-marrie-beauty.png">
 </head>
@@ -30,8 +30,11 @@
              alt="Marriê Beauty" 
              class="drawer-logo-img">
         <p style="font-size: 0.8rem; color: var(--color-text-muted); margin-top: 0.5rem;">
-          Gestão de Assinaturas e Kits Tramontina
+          Gestão de Assinaturas e Kits
         </p>
+        <div class="tramontina-badge" style="margin-top: 0.75rem;">
+          🔧 Tramontina - Afiação Autorizada
+        </div>
       </div>
       
       <div class="drawer-nav">
@@ -76,7 +79,7 @@
 
       <div class="stats-grid">
         <div class="stat-card">
-          <span style="font-size: 0.8rem; font-weight: 700; color: var(--color-secondary); text-transform: uppercase;">
+          <span style="font-size: 0.8rem; font-weight: 700; color: var(--color-primary); text-transform: uppercase;">
             Total de Parceiras
           </span>
           <div class="stat-card-value" id="total-manicures">0</div>
@@ -93,10 +96,11 @@
       <div class="section-card">
         <div class="section-header">
           <h3>Manicures Recentes</h3>
-          <a href="pages/manicures.html">VER TODAS</a>
+          <a href="pages/manicures.html">VER TODAS →</a>
         </div>
         <div class="item-list" id="recent-manicures">
           <div style="text-align: center; padding: 2rem; color: var(--color-text-muted);">
+            <div class="spinner" style="margin: 0 auto 1rem;"></div>
             Buscando informações...
           </div>
         </div>
@@ -185,6 +189,12 @@
             } else {
               document.getElementById('recent-manicures').innerHTML = `
                 <div class="empty-state">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                    <circle cx="9" cy="7" r="4"/>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                  </svg>
                   <h3>Nenhuma parceira cadastrada</h3>
                   <p>Clique no botão + para adicionar a primeira parceira</p>
                 </div>
@@ -193,6 +203,12 @@
           } else {
             document.getElementById('recent-manicures').innerHTML = `
               <div class="empty-state">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                  <circle cx="9" cy="7" r="4"/>
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
                 <h3>Nenhuma parceira cadastrada</h3>
                 <p>Clique no botão + para adicionar a primeira parceira</p>
               </div>
@@ -201,8 +217,8 @@
         } catch (error) {
           console.error('Erro ao carregar dados:', error);
           document.getElementById('recent-manicures').innerHTML = `
-            <div style="text-align: center; padding: 2rem; color: var(--color-danger);">
-              Erro ao carregar informações. Tente novamente.
+            <div class="alert alert-danger">
+              <strong>Erro!</strong> Não foi possível carregar as informações. Tente novamente.
             </div>
           `;
         }
@@ -217,6 +233,7 @@
         window.location.href = 'pages/login.html';
       }).catch((error) => {
         console.error('Erro ao sair:', error);
+        alert('Erro ao fazer logout. Tente novamente.');
       });
     };
   </script>
