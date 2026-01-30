@@ -1,9 +1,10 @@
-// 1. Importa os inicializadores das bibliotecas modernas (SDK v9/v10)
+// Firebase Configuration
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 import { getDatabase } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
-import { getStorage } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
 
+// IMPORTANTE: Substitua estas configurações pelas suas próprias do Firebase Console
+// Visite: https://console.firebase.google.com/
 const firebaseConfig = {
   apiKey: "AIzaSyDEEwNYA30Jb59CcVvhhsqF1B1hCQ410UM",
   authDomain: "parceiro-be3e9.firebaseapp.com",
@@ -14,18 +15,9 @@ const firebaseConfig = {
   appId: "1:619982778395:web:25c141958b7c06da02c8be"
 };
 
-// 2. Inicializa o Firebase
+// Inicializar Firebase
 const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const database = getDatabase(app);
 
-// 3. Cria as instâncias e as EXPORTA para outros arquivos
-export const auth = getAuth(app);
-export const database = getDatabase(app);
-export const storage = getStorage(app);
-
-// 4. (Opcional) Mantém no window para compatibilidade com scripts antigos
-window.firebaseServices = { 
-  db: database, 
-  auth: auth, 
-  storage: storage, 
-  app: app 
-};
+export { auth, database };
